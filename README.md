@@ -1,25 +1,30 @@
 # Stack
 implementation of stack in c language, using dynamic allocation
 
-# Use this Makefile if you dont use netbeans
+## Use this Makefile if you dont use netbeans
 
-stack: main.o stack.o
+
+	stack: main.o stack.o
 	
 	gcc -Wall -g main.o stack.o -o stack
 
-main.o: main.c stack.h
+
+	main.o: main.c stack.h
 	
 	gcc -Wall -g -c main.c
 
-stack.o: stack.c
+
+	stack.o: stack.c
 	
 	gcc -Wall -g -c stack.c
 
-run: stack
+
+	run: stack
 	
 	./stack
 
-clean:
+
+	clean:
 	
 	rm *.o stack
 
