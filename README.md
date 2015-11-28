@@ -19,7 +19,6 @@ implementation of stack in c language, using dynamic allocation
 	run: stack
 		./stack
 
-
 	clean:
 		rm *.o stack
 
