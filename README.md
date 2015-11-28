@@ -6,33 +6,33 @@ implementation of stack in c language, using dynamic allocation
 
 	stack: main.o stack.o
 	
-	gcc -Wall -g main.o stack.o -o stack
+		gcc -Wall -g main.o stack.o -o stack
 
 
 	main.o: main.c stack.h
 	
-	gcc -Wall -g -c main.c
+		gcc -Wall -g -c main.c
 
 
 	stack.o: stack.c
 	
-	gcc -Wall -g -c stack.c
+		gcc -Wall -g -c stack.c
 
 
 	run: stack
 	
-	./stack
+		./stack
 
 
 	clean:
 	
-	rm *.o stack
+		rm *.o stack
 
-memory:
+	memory:
 	
-	valgrind ./stack
+		valgrind ./stack
 
-debug:
-	gdb -tui ./stack
+	debug:
+		gdb -tui ./stack
 
 Hope to be useful!
