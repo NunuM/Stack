@@ -11,10 +11,11 @@
 struct Stack {
     int length;
     int * data;
+    int currentFactor;
 };
 
-struct Stack *create_stack(int length);
-void destroy_stack(struct Stack *st);
+struct Stack *create_stack();
+void destroyStack(struct Stack *st);
 void push(struct Stack *st, int n);
 int pop(struct Stack *st);
 
