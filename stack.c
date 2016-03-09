@@ -30,9 +30,9 @@ int sizeToAllocation(int n, int flag) {
  */
 void memoryManagementForPush(struct Stack *st) {
     if (st->length == 0){
-        if ((st->data = (int *) realloc(st->data, sizeof (int))) == NULL) {
+        if ((st->data = (int *) malloc(sizeof (int))) == NULL) {
             error_at_line(-1,
-                    EFAULT, filename, 92, "Memory error allocation");
+                    EFAULT, filename, 33, "Memory error allocation");
 
         } else {
             st->currentFactor = 1;
@@ -45,7 +45,7 @@ void memoryManagementForPush(struct Stack *st) {
     if ((st->currentFactor - st->length) < 1) {
         if ((st->data = realloc(st->data, increase * sizeof (int))) == NULL) {
             error_at_line(-1,
-                    EFAULT, filename, 100, "Memory allocation was failure");
+                    EFAULT, filename, 46, "Memory allocation was failure");
         }
         st->currentFactor = increase;
     }
@@ -76,7 +76,8 @@ struct Stack *create_stack() {
     struct Stack *st = malloc(sizeof (struct Stack));
 
     if (st == NULL) {
-        fprintf(stderr, "Memory allocation was failure");
+        error_at_line(-1,
+                    EFAULT, filename, 79, "Stack Memory allocation was failure");
     } else {
 
         st->length = 0;
@@ -114,7 +115,7 @@ int pop(struct Stack *st) {
 
     if (st->length == 0) {
         error_at_line(-1,
-                EFAULT, filename, 68, "Index Out Of Bounds");
+                EFAULT, filename, 116, "Index Out Of Bounds");
         return -1;
     }
 
