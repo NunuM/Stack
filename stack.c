@@ -27,7 +27,7 @@ void memoryManagementForPush(struct Stack *st) {
                     EFAULT, filename, 25, "Memory error allocation");
 
         } else {
-            st->currentFactor = 1;
+            st->currentFactor++;
             return;
         }
     }
