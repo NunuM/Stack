@@ -5,23 +5,15 @@
 #include <error.h>
 
 const char *filename = "stack.c";
-
-
-#define SIZEFACTOR 1;
+const unsigned short sizeFactor = 1;
 
 /**
- * Allocation calculated  with power of two, using bit shift.
- * @param n
- * @param flag == 1 ? INCREASE : DECREASE
- * @return integer
+ * Increase memory Macro:
+ * Decrease memory Macro:
+ * @param integer x
  */
-int sizeToAllocation(int n, int flag) {
-    if (flag)
-        return n << SIZEFACTOR;
-
-
-    return n >> SIZEFACTOR;
-}
+#define increaseM(x) (x<<sizeFactor)
+#define decreaseM(x) (x>>sizeFactor)
 
 /**
  * Increase memory if needed by compare the current factor, that give the 
@@ -29,26 +21,27 @@ int sizeToAllocation(int n, int flag) {
  * @param st
  */
 void memoryManagementForPush(struct Stack *st) {
-    if (st->length == 0){
+    if (st->length == 0) {
         if ((st->data = (int *) malloc(sizeof (int))) == NULL) {
             error_at_line(-1,
-                    EFAULT, filename, 33, "Memory error allocation");
+                    EFAULT, filename, 25, "Memory error allocation");
 
         } else {
             st->currentFactor = 1;
             return;
         }
     }
-    //Value as 1 is to increase.
-    int increase = sizeToAllocation(st->currentFactor, 1);
+
+    int increase = increaseM(st->currentFactor);
 
     if ((st->currentFactor - st->length) < 1) {
         if ((st->data = realloc(st->data, increase * sizeof (int))) == NULL) {
             error_at_line(-1,
-                    EFAULT, filename, 46, "Memory allocation was failure");
+                    EFAULT, filename, 38, "Memory allocation was failure");
         }
         st->currentFactor = increase;
     }
+
 }
 
 /**
@@ -57,12 +50,11 @@ void memoryManagementForPush(struct Stack *st) {
  * @param st
  */
 void memoryManagementForPop(struct Stack *st) {
-    //Value as 1 is to increase.
-    int decrease = sizeToAllocation(st->currentFactor, 0);
+    int decrease = decreaseM(st->currentFactor);
     if (st->length < decrease) {
         if ((st->data = realloc(st->data, decrease * sizeof (int))) == NULL) {
             error_at_line(-1,
-                    EFAULT, filename, 100, "Memory allocation was failure");
+                    EFAULT, filename, 54, "Memory allocation was failure");
         }
         st->currentFactor = decrease;
     }
@@ -77,11 +69,9 @@ struct Stack *create_stack() {
 
     if (st == NULL) {
         error_at_line(-1,
-                    EFAULT, filename, 79, "Stack Memory allocation was failure");
+                EFAULT, filename, 67, "Stack Memory allocation was failure");
     } else {
-
         st->length = 0;
-
     }
     return st;
 }
@@ -114,8 +104,7 @@ void push(struct Stack *st, int n) {
 int pop(struct Stack *st) {
 
     if (st->length == 0) {
-        error_at_line(-1,
-                EFAULT, filename, 116, "Index Out Of Bounds");
+        perror("Stack is empty");
         return -1;
     }
 
