@@ -19,13 +19,6 @@ void printIntStack(struct Stack *st) {
     }
 }
 
-int sizeMemoryAllocation(int n, int flag) {
-    if (flag)
-        return n << 1;
-
-
-    return n >> 1;
-}
 
 int main(int argc, char *argv[]) {
 
