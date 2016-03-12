@@ -26,10 +26,7 @@ void memoryManagementForPush(struct Stack *st) {
             error_at_line(-1,
                     EFAULT, filename, 25, "Memory error allocation");
 
-        } else {
-            st->currentFactor++;
-            return;
-        }
+        } 
     }
 
     int increase = increaseM(st->currentFactor);
@@ -37,7 +34,7 @@ void memoryManagementForPush(struct Stack *st) {
     if ((st->currentFactor - st->length) < 1) {
         if ((st->data = realloc(st->data, increase * sizeof (int))) == NULL) {
             error_at_line(-1,
-                    EFAULT, filename, 38, "Memory allocation was failure");
+                    EFAULT, filename, 35, "Memory allocation was failure");
         }
         st->currentFactor = increase;
     }
@@ -54,7 +51,7 @@ void memoryManagementForPop(struct Stack *st) {
     if (st->length < decrease) {
         if ((st->data = realloc(st->data, decrease * sizeof (int))) == NULL) {
             error_at_line(-1,
-                    EFAULT, filename, 54, "Memory allocation was failure");
+                    EFAULT, filename, 52, "Memory allocation was failure");
         }
         st->currentFactor = decrease;
     }
@@ -114,4 +111,13 @@ int pop(struct Stack *st) {
     memoryManagementForPop(st);
 
     return value;
+}
+
+/**
+ * Return but not remove value from stack
+ * @param st structure
+ * @return integer
+ */
+int peek(struct Stack *st) {
+    return *(st->data + (st->length - 1));
 }

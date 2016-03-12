@@ -18,6 +18,7 @@ struct Stack *create_stack();
 void destroyStack(struct Stack *st);
 void push(struct Stack *st, int n);
 int pop(struct Stack *st);
+int peek(struct Stack *st);
 
 
 #endif	/* STACK_H */
